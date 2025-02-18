@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -17,16 +19,15 @@ import jakarta.persistence.Table;
 public class User implements Serializable {
 
 	public static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	
+
 	private String name;
 	private String email;
 	private String phone;
 	private String pass;
-	
 
 	@OneToMany(mappedBy = "client")
 	private List<Order> orders = new ArrayList<>();
@@ -82,7 +83,7 @@ public class User implements Serializable {
 	public void setPass(String pass) {
 		this.pass = pass;
 	}
-	
+
 	public List<Order> getOrders() {
 		return orders;
 	}
@@ -108,7 +109,5 @@ public class User implements Serializable {
 		User other = (User) obj;
 		return id == other.id;
 	}
-	
-	
 
 }
