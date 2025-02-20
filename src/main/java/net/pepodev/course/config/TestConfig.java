@@ -10,10 +10,12 @@ import org.springframework.context.annotation.Profile;
 
 import net.pepodev.course.entities.Category;
 import net.pepodev.course.entities.Order;
+import net.pepodev.course.entities.Product;
 import net.pepodev.course.entities.User;
 import net.pepodev.course.entities.enums.OrderStatus;
 import net.pepodev.course.repositories.CategoryRepository;
 import net.pepodev.course.repositories.OrderRepository;
+import net.pepodev.course.repositories.ProductRepository;
 import net.pepodev.course.repositories.UserRepository;
 
 @Configuration
@@ -26,9 +28,11 @@ public class TestConfig implements CommandLineRunner {
 	@Autowired
 	private OrderRepository orderRep;
 
-
 	@Autowired
 	private CategoryRepository categoryRep;
+	
+	@Autowired
+	private ProductRepository prodRep;
 
 	@Override
 	public void run(String... args) throws Exception {
@@ -44,10 +48,18 @@ public class TestConfig implements CommandLineRunner {
 		Category cat2 = new Category(null, "Móveis");
 		Category cat3 = new Category(null, "Esportivos");
 		
+		Product p1 = new Product(null, "Raio", "Irrita", 150L, "Ler");
+		Product p2 = new Product(null, "Smart TV", "Nulla eu imperdiet purus. Maecenas ante.", 2190L, "");
+		Product p3 = new Product(null, "Macbook Pro", "Nam eleifend maximus tortor, at mollis.", 1250L, "");
+		Product p4 = new Product(null, "PC Gamer", "Donec aliquet odio ac rhoncus cursus.", 1200L, "");
+		Product p5 = new Product(null, "Rails for Dummies", "Cras fringilla convallis sem vel faucibus.", 100L, "");
+		
 
 		userRep.saveAll(Arrays.asList(u1, u2));
 		orderRep.saveAll(Arrays.asList(o1, o2, o3));
 		categoryRep.saveAll(Arrays.asList(cat1, cat2, cat3));
+		
+		prodRep.saveAll(Arrays.asList(p1, p2, p3, p4, p5));
 
 	}
 
