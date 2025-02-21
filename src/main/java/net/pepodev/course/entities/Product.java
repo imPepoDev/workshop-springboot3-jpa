@@ -25,7 +25,7 @@ public class Product implements Serializable {
 	private Long id;
 	
 	private String name;
-	private Long price;
+	private Double price;
 	private String description;
 	private String imgUrl;
 	
@@ -38,7 +38,7 @@ public class Product implements Serializable {
 	
 	public Product() {}
 	
-	public Product(Long id, String name, String description, Long price, String imgUrl) {
+	public Product(Long id, String name, String description, Double price, String imgUrl) {
 		this.id = id;
 		this.name = name;
 		this.price = price;
@@ -64,11 +64,11 @@ public class Product implements Serializable {
 		this.name = name;
 	}
 
-	public Long getPrice() {
+	public Double getPrice() {
 		return price;
 	}
 
-	public void setPrice(Long price) {
+	public void setPrice(Double price) {
 		this.price = price;
 	}
 	
