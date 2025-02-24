@@ -28,4 +28,8 @@ public class UserService {
 		return rep.save(obj);
 	}
 	
+	public void delete(Integer id) {
+		rep.deleteById(id);
+	}
+	
 }
