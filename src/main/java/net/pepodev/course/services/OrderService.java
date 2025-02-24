@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import net.pepodev.course.entities.Order;
+import net.pepodev.course.entities.User;
 import net.pepodev.course.repositories.OrderRepository;
 
 @Service
@@ -24,4 +25,7 @@ public class OrderService {
 		return orderID.get();
 	}
 	
+	public Order insert(Order obj) {
+		return rep.save(obj);
+	}
 }

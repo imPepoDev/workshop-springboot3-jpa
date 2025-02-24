@@ -24,4 +24,8 @@ public class UserService {
 		return userID.get();
 	}
 	
+	public User insert(User obj) {
+		return rep.save(obj);
+	}
+	
 }
