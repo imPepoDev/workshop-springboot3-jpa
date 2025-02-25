@@ -8,6 +8,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
+import jakarta.persistence.EntityNotFoundException;
 import net.pepodev.course.entities.User;
 import net.pepodev.course.repositories.UserRepository;
 import net.pepodev.course.services.exceptions.DatabaseException;
@@ -18,42 +19,45 @@ public class UserService {
 
 	@Autowired
 	private UserRepository rep;
-	
+
 	public List<User> findAll() {
 		return rep.findAll();
 	}
-	
+
 	public User findById(Integer id) {
 		Optional<User> userID = rep.findById(id);
 		return userID.orElseThrow(() -> new ResourceNotFoundException(id));
 	}
-	
+
 	public User insert(User obj) {
 		return rep.save(obj);
 	}
-	
+
 	public void delete(Integer id) {
 		try {
 			rep.deleteById(id);
-		}
-		catch (EmptyResultDataAccessException e) {
+		} catch (EmptyResultDataAccessException e) {
 			throw new ResourceNotFoundException(id);
-		}
-		catch (DataIntegrityViolationException e) {
+		} catch (DataIntegrityViolationException e) {
 			throw new DatabaseException(e.getMessage());
 		}
 	}
-	
+
 	public User update(Integer id, User user) {
-		User entity = rep.getReferenceById(id);
-		updateData(entity, user);
-		return rep.save(entity);
+		try {
+			User entity = rep.getReferenceById(id);
+			updateData(entity, user);
+			return rep.save(entity);
+		}
+		catch (EntityNotFoundException e) {
+			throw new ResourceNotFoundException(id);
+		}
 	}
-	
+
 	private void updateData(User entity, User obj) {
 		entity.setName(obj.getName());
 		entity.setEmail(obj.getEmail());
 		entity.setPhone(obj.getPhone());
 	}
-	
+
 }
