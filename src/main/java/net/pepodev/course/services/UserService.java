@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import net.pepodev.course.entities.User;
 import net.pepodev.course.repositories.UserRepository;
+import net.pepodev.course.services.exceptions.ResourceNotFoundException;
 
 @Service
 public class UserService {
@@ -21,7 +22,7 @@ public class UserService {
 	
 	public User findById(Integer id) {
 		Optional<User> userID = rep.findById(id);
-		return userID.get();
+		return userID.orElseThrow(() -> new ResourceNotFoundException(id));
 	}
 	
 	public User insert(User obj) {
